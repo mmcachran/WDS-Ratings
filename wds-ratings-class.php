@@ -50,7 +50,7 @@ class WDS_Ratings {
 	 * @since  0.1.0
 	 */
 	protected function __construct() {
-		// Useful variables
+		// Useful variables.
 		$this->url  = trailingslashit( plugin_dir_url( __FILE__ ) );
 		$this->path = trailingslashit( dirname( __FILE__ ) );
 		$this->name = __( 'WDS Ratings', 'wds_ratings' );
@@ -61,14 +61,14 @@ class WDS_Ratings {
 	 * @since  0.1.0
 	 */
 	public function hooks() {
-		// CMB2 for metabox/options page
+		// CMB2 for metabox/options page.
 		require_once( $this->path  . 'lib/cmb2/init.php' );
 
-		// Options
+		// Options.
 		require_once( $this->path . 'lib/options.php' );
 		$this->admin = new WDS_Ratings_Admin;
 
-		// create meta box for posts
+		// create meta box for posts.
 		require_once( $this->path . 'lib/meta-box.php' );
 		$this->metabox = new WDS_Ratings_Meta_Box();
 
@@ -78,17 +78,17 @@ class WDS_Ratings {
 		add_action( 'init', array( $this, 'init' ) );
 		register_activation_hook( __FILE__, array( $this, 'activation' ) );
 
-		// Add JS to the footer and CSS to head
+		// Add JS to the footer and CSS to head.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 
-		// AJAX
+		// AJAX.
 		add_action( 'wp_ajax_wds_ratings_post_user_rating', array( $this->ajax, 'post_user_rating' ) );
 		add_action( 'wp_ajax_nopriv_wds_ratings_post_user_rating', array( $this->ajax, 'post_user_rating' ) );
 
-		// Cache
+		// Cache.
 		add_action( 'wds_rate_post', array( $this, 'update_user_post_rating_cache' ), 10, 3 );
 
-		// add content filter if enabled
+		// Add content filter if enabled.
 		if ( 'on' === $this->fetch_option( 'enable_content_filter' ) ) {
 			add_filter( 'the_content', array( $this, 'content_filter' ) );
 		}
@@ -371,7 +371,7 @@ class WDS_Ratings {
 			return $this->options[ $key ];
 		}
 
-		// If nothing has been returned yet, return false
+		// If nothing has been returned yet, return false.
 		return false;
 	}
 
